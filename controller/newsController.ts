@@ -1,15 +1,12 @@
 import NewsService from "../services/newsService";
 import * as HttpStatus from "http-status";
+import Helper from "../infra/helper";
 
 class NewsController {
 
-    sendResponse = function (res, statusCode, data) {
-        res.status(statusCode).json({ result: data });
-    }
-
     get(req, res) {
         NewsService.get()
-            .then(news => this.sendResponse(res, HttpStatus.OK, news))
+            .then(news => Helper.sendResponse(res, HttpStatus.OK, news))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -17,7 +14,7 @@ class NewsController {
         const _id = req.params.id;
 
         NewsService.getById(_id)
-            .then(news => this.sendResponse(res, HttpStatus.OK, news))
+            .then(news => Helper.sendResponse(res, HttpStatus.OK, news))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -25,7 +22,7 @@ class NewsController {
         let vm = req.body;
 
         NewsService.create(vm)
-            .then(news => this.sendResponse(res, HttpStatus.OK, "Notícia cadastrada com sucesso"))
+            .then(news => Helper.sendResponse(res, HttpStatus.OK, "Notícia cadastrada com sucesso"))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -34,7 +31,7 @@ class NewsController {
         let news = req.body;
 
         NewsService.update(_id, news)
-            .then(news => this.sendResponse(res, HttpStatus.OK, `${news.title} foi atualizada com sucesso`))
+            .then(news => Helper.sendResponse(res, HttpStatus.OK, `${news.title} foi atualizada com sucesso`))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 
@@ -42,7 +39,7 @@ class NewsController {
         const _id = req.body.id;
 
         NewsService.delete(_id)
-            .then(() => this.sendResponse(res, HttpStatus.OK, "Notícia deletada com sucesso"))
+            .then(() => Helper.sendResponse(res, HttpStatus.OK, "Notícia deletada com sucesso"))
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
 }
