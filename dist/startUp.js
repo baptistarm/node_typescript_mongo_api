@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const database_1 = require("./infra/database");
 const bodyParser = require("body-parser");
+const newsController_1 = require("./controller/newsController");
 class StartUp {
     constructor() {
         this.app = express();
@@ -19,6 +20,11 @@ class StartUp {
         this.app.route('/').get((req, res) => {
             res.send('versão: 0.0.1');
         });
+        this.app.route("/api/v1/news").get(newsController_1.default.get);
+        this.app.route("/api/v1/news/:id").get(newsController_1.default.getById);
+        this.app.route("/api/v1/news/:id").put(newsController_1.default.update);
+        this.app.route("/api/v1/news/:id").post(newsController_1.default.update);
+        this.app.route("/api/v1/news/:id").post(newsController_1.default.delete);
     }
 }
 exports.default = new StartUp();
