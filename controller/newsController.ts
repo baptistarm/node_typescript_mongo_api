@@ -36,7 +36,7 @@ class NewsController {
     }
 
     delete(req, res) {
-        const _id = req.body.id;
+        const _id = req.params.id;
 
         NewsService.delete(_id)
             .then(() => Helper.sendResponse(res, HttpStatus.OK, "Notícia deletada com sucesso"))

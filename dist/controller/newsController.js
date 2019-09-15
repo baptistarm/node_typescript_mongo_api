@@ -29,7 +29,7 @@ class NewsController {
             .catch(error => console.error.bind(console, `Error ${error}`));
     }
     delete(req, res) {
-        const _id = req.body.id;
+        const _id = req.params.id;
         newsService_1.default.delete(_id)
             .then(() => helper_1.default.sendResponse(res, HttpStatus.OK, "Notícia deletada com sucesso"))
             .catch(error => console.error.bind(console, `Error ${error}`));
